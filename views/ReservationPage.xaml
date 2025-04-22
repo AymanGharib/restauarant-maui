@@ -1,0 +1,167 @@
+<ContentPage
+  xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+  xmlns:vm="clr-namespace:MauiMySQLDemo.ViewModels"
+  xmlns:models="clr-namespace:MauiMySQLDemo.Models"
+  xmlns:converters="clr-namespace:MauiMySQLDemo.Converters"
+  x:Class="MauiMySQLDemo.Views.ReservationPage"
+  x:Name="ThisPage"
+  BackgroundColor="#F5F7FA"
+  Title="Reserve a Table">
+
+  <ContentPage.BindingContext>
+    <vm:ReservationViewModel />
+  </ContentPage.BindingContext>
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <converters:BoolToColorConverter x:Key="BoolToColor" />
+      <converters:BoolToStatusConverter x:Key="BoolToStatus" />
+      
+      <Style x:Key="HeaderLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="28" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#262E3E" />
+        <Setter Property="Margin" Value="0,0,0,16" />
+      </Style>
+      
+      <Style x:Key="DatePickerFrameStyle" TargetType="Frame">
+       <!-- <Setter Property="CornerRadius" Value="16" /> -->
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="Margin" Value="0,0,0,20" />
+      </Style>
+      
+      <Style x:Key="DatePickerStyle" TargetType="DatePicker">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="TextColor" Value="#262E3E" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+      </Style>
+      
+      <Style x:Key="DateLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="#5E6579" />
+        <Setter Property="Margin" Value="0,0,0,4" />
+      </Style>
+      
+      <Style x:Key="TableCardStyle" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="HasShadow" Value="True" />
+        <Setter Property="BorderColor" Value="Transparent" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="HeightRequest" Value="150" />
+      </Style>
+      
+      <Style x:Key="TableNumberStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="32" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="TextColor" Value="#262E3E" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+      </Style>
+      
+      <Style x:Key="TableHeaderStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="TextColor" Value="#5E6579" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+      </Style>
+      
+      <Style x:Key="TableSeatsStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="#262E3E" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Margin" Value="0,4,0,8" />
+      </Style>
+      
+      <Style x:Key="TableStatusStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="Padding" Value="12,4" />
+     <!--   <Setter Property="CornerRadius" Value="12" /> -->
+      </Style>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+
+  <Grid RowDefinitions="Auto,Auto,*" Padding="16,24">
+    <!-- Header -->
+    <Label Text="Table Reservation" Style="{StaticResource HeaderLabelStyle}" />
+    
+    <!-- Date Picker Section -->
+    <Frame Grid.Row="1" Style="{StaticResource DatePickerFrameStyle}">
+      <VerticalStackLayout Spacing="4">
+        <Label Text="Select a date for your reservation" Style="{StaticResource DateLabelStyle}" />
+        <DatePicker Date="{Binding SelectedDate}" Style="{StaticResource DatePickerStyle}" />
+      </VerticalStackLayout>
+    </Frame>
+
+    <!-- Tables Collection -->
+    <CollectionView
+      Grid.Row="2"
+      x:Name="TablesCollection"
+      ItemsSource="{Binding Tables}"
+      SelectionMode="None"
+      Margin="0,8,0,0">
+
+      <CollectionView.ItemsLayout>
+        <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="8" VerticalItemSpacing="16" />
+      </CollectionView.ItemsLayout>
+
+      <CollectionView.EmptyView>
+        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+          <Label Text="No tables available" 
+                 FontSize="18" 
+                 TextColor="#5E6579" 
+                 HorizontalOptions="Center" />
+        </VerticalStackLayout>
+      </CollectionView.EmptyView>
+
+      <CollectionView.ItemTemplate>
+        <DataTemplate x:DataType="models:TableViewItem">
+          <Frame
+            Style="{StaticResource TableCardStyle}"
+            BackgroundColor="{Binding IsReserved, 
+                            Converter={StaticResource BoolToColor}, 
+                            ConverterParameter='#FFEBEE,#E8F5E9'}">
+
+            <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="2">
+              <Label Text="TABLE" Style="{StaticResource TableHeaderStyle}" />
+              
+              <Label Grid.Row="1" 
+                     Text="{Binding Table.Number}" 
+                     Style="{StaticResource TableNumberStyle}" />
+              
+              <Label Grid.Row="2" 
+                     Text="{Binding Table.Seats, StringFormat='{0} seats'}" 
+                     Style="{StaticResource TableSeatsStyle}" />
+              
+              <Border Grid.Row="3"
+                      StrokeShape="RoundRectangle 12"
+                      BackgroundColor="{Binding IsReserved, 
+                                       Converter={StaticResource BoolToColor}, 
+                                       ConverterParameter='#EF5350,#4CAF50'}"
+                      StrokeThickness="0"
+                      HorizontalOptions="Center">
+                <Label Text="{Binding IsReserved, Converter={StaticResource BoolToStatus}}" 
+                       TextColor="White"
+                       FontAttributes="Bold"
+                       FontSize="12"
+                       Padding="12,6"
+                       HorizontalOptions="Center" />
+              </Border>
+            </Grid>
+
+            <Frame.GestureRecognizers>
+              <TapGestureRecognizer
+                Command="{Binding Source={x:Reference ThisPage}, Path=BindingContext.ReserveCommand}"
+                CommandParameter="{Binding}" />
+            </Frame.GestureRecognizers>
+          </Frame>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+  </Grid>
+</ContentPage>

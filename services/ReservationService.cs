@@ -22,22 +22,17 @@ public class ReservationService
         cmd.ExecuteNonQuery();
     }
 // in ReservationService
-public List<int> GetReservedTableIds(DateTime selectedDate)
+public List<int> GetReservedTableIds(DateTime start, DateTime end)
 {
     var reserved = new List<int>();
     using var conn = new MySqlConnection(_connectionString);
     conn.Open();
 
-    // define the start of the day and the start of the next day
-    var start = selectedDate.Date;
-    var end   = start.AddDays(1);
-
     using var cmd = new MySqlCommand(@"
         SELECT TableId
           FROM Reservations
          WHERE `Date` >= @start
-           AND `Date` <  @end
-    ", conn);
+           AND `Date` <  @end", conn);
 
     cmd.Parameters.Add("@start", MySqlDbType.DateTime).Value = start;
     cmd.Parameters.Add("@end",   MySqlDbType.DateTime).Value = end;
@@ -48,7 +43,6 @@ public List<int> GetReservedTableIds(DateTime selectedDate)
 
     return reserved;
 }
-
 
 
 }

@@ -1,0 +1,82 @@
+############################################################
+#  📦 .NET / Visual Studio
+############################################################
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+
+############################################################
+#  🔧 Build + Packaging
+############################################################
+# MSBuild intermediate files
+GeneratedFiles/
+*.g.cs
+*.g.i.cs
+
+# NuGet
+packages/
+*.nupkg
+.nuget/
+
+# SDK‑style project lock files (restore will recreate)
+project.assets.json
+project.nuget.cache
+
+############################################################
+#  🖼️  Visual Studio Code
+############################################################
+.vscode/
+
+############################################################
+#  📱 MAUI mobile artifacts
+############################################################
+# Android
+*.apk
+*.aab
+*.ap_
+android/bin/
+android/obj/
+# Keystore / signing
+*.keystore
+*.jks
+
+# iOS / macOS
+build/   # created by Xcode during archiving
+*.ipa
+*.xcarchive/
+*.dSYM
+# Provisioning + signing
+*.mobileprovision
+*.cer
+*.p12
+
+############################################################
+#  🪟 Windows / UWP artifacts
+############################################################
+# MSIX / APPX packages
+*.appx
+*.appxbundle
+*.msix
+*.msixbundle
+# Auto‑generated 𝑝𝑟𝑖 files
+*.pri
+
+############################################################
+#  🍏 Xcode & macOS noise (if you build on a Mac)
+############################################################
+*.xcuserstate
+*.xcworkspace/
+DerivedData/
+*.DS_Store
+
+############################################################
+#  🔐 Secrets / Local config
+############################################################
+*.pfx
+appsettings.*.local.json
+.env
+Secrets.json

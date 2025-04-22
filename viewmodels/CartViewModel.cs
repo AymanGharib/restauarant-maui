@@ -35,21 +35,46 @@ public partial class CartViewModel : ObservableObject
         => TotalText = $"Total: {_cartService.GetTotal():F2} MAD";
 
     // Generates ValidateOrderCommand for you
-    [RelayCommand]
-    private void ValidateOrder()
+  
+
+
+[RelayCommand]
+private async Task ValidateOrderAsync()
+{
+  if (_cartService.Items.Count == 0)
     {
-        var total = _cartService.GetTotal();
-        var commandeId = new CommandeService().CreateCommande(total);
-
-        var ligneService = new LigneCommandeService();
-        foreach (var ci in _cartService.Items)
-            ligneService.AddLigneCommande(commandeId, ci.Plat.Id, ci.Quantity);
-
-        _cartService.Clear();
-        LoadCart();
-        UpdateTotalText();
-
-        Application.Current?.MainPage?
-            .DisplayAlert("Success", "Order validated!", "OK");
+        await NotificationService.ShowError("Cart is empty", "Please add items before validating.");
+        return;
     }
+
+    // Step 1: Prompt for dummy payment info
+    var name = await Application.Current!.MainPage!
+        .DisplayPromptAsync("Payment Info", "Enter your full name:");
+    if (string.IsNullOrWhiteSpace(name)) return;
+
+    var bankId = await Application.Current!.MainPage!
+        .DisplayPromptAsync("Payment Info", "Enter your Bank ID:");
+    if (string.IsNullOrWhiteSpace(bankId)) return;
+
+    var code = await Application.Current!.MainPage!
+        .DisplayPromptAsync("Payment Info", "Enter your Security Code:");
+    if (string.IsNullOrWhiteSpace(code)) return;
+
+    // Step 2: Continue with your original order logic
+    var total = _cartService.GetTotal();
+    var commandeId = new CommandeService().CreateCommande(total);
+
+    var ligneService = new LigneCommandeService();
+    foreach (var ci in _cartService.Items)
+        ligneService.AddLigneCommande(commandeId, ci.Plat.Id, ci.Quantity);
+
+    // Step 3: Clear cart, reload UI
+    _cartService.Clear();
+    LoadCart();
+    UpdateTotalText();
+
+    // Step 4: Success notification
+ await NotificationService.ShowSuccess("Payment Confirmed", $"Thank you {name}, your order has been placed!");
+}
+
 }

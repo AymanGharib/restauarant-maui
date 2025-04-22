@@ -13,62 +13,54 @@ public partial class ReservationViewModel : ObservableObject
 
     public ObservableCollection<TableViewItem> Tables { get; } = new();
 
-    [ObservableProperty] private DateOnly selectedDate = DateOnly.FromDateTime(DateTime.Today);
+    // SINGLE source‑generated property ↓↓↓
+    [ObservableProperty]
+    private DateTime selectedDate = DateTime.Today;
 
     public ReservationViewModel() => LoadTables();
 
-    partial void OnSelectedDateChanged(DateOnly oldValue, DateOnly newValue) => LoadTables();
+    // will be called automatically when SelectedDate changes
+    partial void OnSelectedDateChanged(DateTime oldValue, DateTime newValue) => LoadTables();
 
-// in your ReservationViewModel
-private void LoadTables()
-{
-    Tables.Clear();
+    // ---------------------------------------------------------
 
-    // convert your DateOnly to a DateTime at midnight
-    var date = SelectedDate.ToDateTime(TimeOnly.MinValue);
-
-    // get the list of reserved table IDs _for that date only_
-    var busy = _reservationSrv.GetReservedTableIds(date);
-
-    foreach (var t in _tableSrv.GetAllTables())
-        Tables.Add(new TableViewItem {
-            Table      = t,
-            IsReserved = busy.Contains(t.Id)
-        });
-}
-
-    // The Toolkit generates ReserveCommand (IAsyncRelayCommand<TableViewItem>)
-[RelayCommand]
-private async Task ReserveAsync(TableViewItem item)
-{
-    if (item.IsReserved)
-        return; // already booked
-
-    // 1) prompt user for name
-    var name = await Application.Current!
-                     .MainPage!
-                     .DisplayPromptAsync("Your name", "Enter reservation name:");
-    if (string.IsNullOrWhiteSpace(name))
-        return;
-
-    // 2) insert into DB
-    _reservationSrv.AddReservation(new Reservation
+    private void LoadTables()
     {
-        TableId = item.Table.Id,
-        Name    = name,
-        // store full DateTime (we only filter by date when reading)
-        Date    = SelectedDate.ToDateTime(new TimeOnly(19, 0))
-    });
+        var start = SelectedDate.Date;      // 00:00 of the day
+        var end   = start.AddDays(1);       // 00:00 next day
 
-    // 3) reload everything so busy‑flags get recalculated
-    LoadTables();
+        var busy = _reservationSrv.GetReservedTableIds(start, end);
 
-    // 4) confirm to user
-    await Application.Current
-                   .MainPage
-                   .DisplayAlert("Booked",
-                                 $"Table {item.Table.Number} reserved for {SelectedDate:d}.",
-                                 "OK");
-}
+        Tables.Clear();
+        foreach (var t in _tableSrv.GetAllTables())
+            Tables.Add(new TableViewItem
+            {
+                Table      = t,
+                IsReserved = busy.Contains(t.Id)
+            });
+    }
 
+    // Toolkit will generate ReserveCommand
+    [RelayCommand]
+    private async Task ReserveAsync(TableViewItem item)
+    {
+        if (item.IsReserved) return;
+
+        var name = await Application.Current.MainPage!
+            .DisplayPromptAsync("Your name", "Enter reservation name:");
+        if (string.IsNullOrWhiteSpace(name)) return;
+
+        _reservationSrv.AddReservation(new Reservation
+        {
+            TableId = item.Table.Id,
+            Name    = name,
+            Date    = SelectedDate.Date + new TimeSpan(19, 0, 0) // 19:00
+        });
+
+        LoadTables();
+
+        await NotificationService.ShowSuccess(
+            "Reservation confirmed",
+            $"Table {item.Table.Number} reserved for {SelectedDate:d}");
+    }
 }

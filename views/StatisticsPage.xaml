@@ -1,0 +1,23 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:MauiMySQLDemo.ViewModels"
+             xmlns:microcharts="clr-namespace:Microcharts.Maui;assembly=Microcharts.Maui"
+             x:Class="MauiMySQLDemo.Views.StatisticsPage"
+             Title="Statistics">
+
+    <ContentPage.BindingContext>
+        <viewModels:StatisticsViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="24" Padding="16">
+
+            <Label Text="Top 5 Dishes" FontSize="20" FontAttributes="Bold" />
+            <microcharts:ChartView Chart="{Binding TopDishesChart}" HeightRequest="250" />
+
+            <Label Text="Most Reserved Tables" FontSize="20" FontAttributes="Bold" />
+            <microcharts:ChartView Chart="{Binding TopTablesChart}" HeightRequest="250" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

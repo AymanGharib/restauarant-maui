@@ -57,14 +57,32 @@ build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.CartPage.xam
 build_metadata.AdditionalFiles.TargetPath = views\CartPage.xaml
 build_metadata.AdditionalFiles.RelativePath = views\CartPage.xaml
 
+[C:/Users/ayman/Desktop/MauiMySQLDemo/views/LoginPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.LoginPage.xaml
+build_metadata.AdditionalFiles.TargetPath = views\LoginPage.xaml
+build_metadata.AdditionalFiles.RelativePath = views\LoginPage.xaml
+
 [C:/Users/ayman/Desktop/MauiMySQLDemo/views/MenuPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.MenuPage.xaml
 build_metadata.AdditionalFiles.TargetPath = views\MenuPage.xaml
 build_metadata.AdditionalFiles.RelativePath = views\MenuPage.xaml
 
+[C:/Users/ayman/Desktop/MauiMySQLDemo/views/ProfilePage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.ProfilePage.xaml
+build_metadata.AdditionalFiles.TargetPath = views\ProfilePage.xaml
+build_metadata.AdditionalFiles.RelativePath = views\ProfilePage.xaml
+
 [C:/Users/ayman/Desktop/MauiMySQLDemo/views/ReservationPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.ReservationPage.xaml
 build_metadata.AdditionalFiles.TargetPath = views\ReservationPage.xaml
 build_metadata.AdditionalFiles.RelativePath = views\ReservationPage.xaml
+
+[C:/Users/ayman/Desktop/MauiMySQLDemo/views/StatisticsPage.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = TestApp.views.StatisticsPage.xaml
+build_metadata.AdditionalFiles.TargetPath = views\StatisticsPage.xaml
+build_metadata.AdditionalFiles.RelativePath = views\StatisticsPage.xaml

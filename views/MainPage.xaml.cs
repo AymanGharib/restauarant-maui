@@ -23,6 +23,12 @@ private async void OnTablesClicked(object sender, EventArgs e)
     => await Navigation.PushAsync(new ReservationPage());
 
 
+    private async void OnStatisticsClicked(object sender, EventArgs e)
+        => await Navigation.PushAsync(new StatisticsPage());
+
+        private async void OnProfileClicked(object sender, EventArgs e)
+    => await Navigation.PushAsync(new ProfilePage());
+
 
 
 

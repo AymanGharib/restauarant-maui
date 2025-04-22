@@ -8,4 +8,6 @@ public class Plat
     public decimal Price { get; set; }
     public string? Category { get; set; }
     public string? ImageUrl { get; set; }
+    public int? TimesOrdered { get; set; }  // new field
+
 }

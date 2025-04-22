@@ -60,16 +60,27 @@
         </Style>
     </ContentPage.Resources>
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cart" 
-                     IconImageSource="cart.png" 
-                     Clicked="OnCartClicked" />
-        <ToolbarItem Text="Tables"
-                     IconImageSource="table.png"
-                     Order="Primary"
-                     Priority="1"
-                     Clicked="OnTablesClicked" />
-    </ContentPage.ToolbarItems>
+<ContentPage.ToolbarItems>
+    <ToolbarItem Text="Cart" 
+                 IconImageSource="cart.png" 
+                 Clicked="OnCartClicked" />
+    <ToolbarItem Text="Tables"
+                 IconImageSource="table.png"
+                 Order="Primary"
+                 Priority="1"
+                 Clicked="OnTablesClicked" />
+    <ToolbarItem Text="Stats"
+                 IconImageSource="chart.png" 
+                 Order="Primary"
+                 Priority="2"
+                 Clicked="OnStatisticsClicked" />
+    <ToolbarItem Text="Profile"
+             IconImageSource="profile.png"
+             Order="Primary"
+             Priority="3"
+             Clicked="OnProfileClicked" />
+</ContentPage.ToolbarItems>
+
 
     <Grid RowDefinitions="Auto,*" Padding="16,18,16,0">
         <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">

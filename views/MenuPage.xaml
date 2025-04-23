@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewModels="clr-namespace:MauiMySQLDemo.ViewModels"
              x:Class="MauiMySQLDemo.Views.MenuPage"
-             BackgroundColor="#F5F7FA"
-             Title="Menu">
+             BackgroundColor="#F8F9FC"
+             Title="Menu"
+             Shell.NavBarIsVisible="True"
+             Shell.NavBarHasShadow="True">
 
     <ContentPage.BindingContext>
         <viewModels:MenuViewModel />
@@ -11,34 +13,50 @@
 
     <ContentPage.Resources>
         <Style x:Key="CardStyle" TargetType="Frame">
-            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="CornerRadius" Value="18" />
             <Setter Property="HasShadow" Value="True" />
             <Setter Property="BorderColor" Value="Transparent" />
             <Setter Property="BackgroundColor" Value="White" />
             <Setter Property="Padding" Value="18" />
-            <Setter Property="Margin" Value="6" />
-            <Setter Property="HeightRequest" Value="230" />
+            <Setter Property="Margin" Value="4,6" />
+            <Setter Property="HeightRequest" Value="250" />
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.98" />
+                                <Setter Property="Opacity" Value="0.9" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
         </Style>
         
         <Style x:Key="TitleStyle" TargetType="Label">
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="FontSize" Value="18" />
-            <Setter Property="TextColor" Value="#262E3E" />
+            <Setter Property="FontSize" Value="19" />
+            <Setter Property="FontFamily" Value="OpenSansSemibold" />
+            <Setter Property="TextColor" Value="#1A2138" />
             <Setter Property="LineBreakMode" Value="TailTruncation" />
             <Setter Property="MaxLines" Value="1" />
         </Style>
         
         <Style x:Key="DescriptionStyle" TargetType="Label">
             <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontFamily" Value="OpenSansRegular" />
             <Setter Property="TextColor" Value="#5E6579" />
-            <Setter Property="Margin" Value="0,6,0,0" />
+            <Setter Property="Margin" Value="0,8,0,0" />
             <Setter Property="LineBreakMode" Value="TailTruncation" />
             <Setter Property="MaxLines" Value="2" />
         </Style>
         
         <Style x:Key="PriceStyle" TargetType="Label">
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontFamily" Value="OpenSansBold" />
             <Setter Property="TextColor" Value="#2E7D32" />
             <Setter Property="Margin" Value="0,12,0,0" />
         </Style>
@@ -46,55 +64,115 @@
         <Style x:Key="AddToCartButtonStyle" TargetType="Button">
             <Setter Property="BackgroundColor" Value="#FF5252" />
             <Setter Property="TextColor" Value="White" />
+            <Setter Property="FontFamily" Value="OpenSansSemibold" />
+            <Setter Property="FontSize" Value="14" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="CornerRadius" Value="24" />
-            <Setter Property="Margin" Value="0,12,0,0" />
-            <Setter Property="HeightRequest" Value="44" />
+            <Setter Property="CornerRadius" Value="12" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="HeightRequest" Value="42" />
+            <Setter Property="Shadow">
+                <Shadow Brush="#80FF5252" Offset="0,2" Radius="4" Opacity="0.5" />
+            </Setter>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.96" />
+                                <Setter Property="Opacity" Value="0.8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Disabled">
+                            <VisualState.Setters>
+                                <Setter Property="BackgroundColor" Value="#CCCCCC" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+        
+        <Style x:Key="DetailsButtonStyle" TargetType="Button" BasedOn="{StaticResource AddToCartButtonStyle}">
+            <Setter Property="BackgroundColor" Value="#3F51B5" />
+            <Setter Property="Shadow">
+                <Shadow Brush="#803F51B5" Offset="0,2" Radius="4" Opacity="0.5" />
+            </Setter>
         </Style>
         
         <Style x:Key="PageHeaderStyle" TargetType="Label">
-            <Setter Property="FontSize" Value="28" />
+            <Setter Property="FontSize" Value="32" />
             <Setter Property="FontAttributes" Value="Bold" />
-            <Setter Property="TextColor" Value="#262E3E" />
+            <Setter Property="FontFamily" Value="OpenSansBold" />
+            <Setter Property="TextColor" Value="#1A2138" />
             <Setter Property="HorizontalOptions" Value="Start" />
+        </Style>
+        
+        <Style x:Key="CategoryTagStyle" TargetType="Border">
+            <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+            <Setter Property="BackgroundColor" Value="#FFF3E0" />
+            <Setter Property="StrokeThickness" Value="0" />
+            <Setter Property="HeightRequest" Value="8" />
+            <Setter Property="WidthRequest" Value="50" />
+            <Setter Property="HorizontalOptions" Value="Start" />
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+        
+        <Style x:Key="CartButtonStyle" TargetType="Frame">
+            <Setter Property="BackgroundColor" Value="#FF5252" />
+            <Setter Property="CornerRadius" Value="16" />
+            <Setter Property="HeightRequest" Value="48" />
+            <Setter Property="WidthRequest" Value="48" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="Shadow">
+                <Shadow Brush="#80FF5252" Offset="0,3" Radius="6" Opacity="0.5" />
+            </Setter>
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="Pressed">
+                            <VisualState.Setters>
+                                <Setter Property="Scale" Value="0.95" />
+                                <Setter Property="Opacity" Value="0.8" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
         </Style>
     </ContentPage.Resources>
 
-<ContentPage.ToolbarItems>
-    <ToolbarItem Text="Cart" 
-                 IconImageSource="cart.png" 
-                 Clicked="OnCartClicked" />
-    <ToolbarItem Text="Tables"
-                 IconImageSource="table.png"
-                 Order="Primary"
-                 Priority="1"
-                 Clicked="OnTablesClicked" />
-    <ToolbarItem Text="Stats"
-                 IconImageSource="chart.png" 
-                 Order="Primary"
-                 Priority="2"
-                 Clicked="OnStatisticsClicked" />
-    <ToolbarItem Text="Profile"
-             IconImageSource="profile.png"
-             Order="Primary"
-             Priority="3"
-             Clicked="OnProfileClicked" />
-</ContentPage.ToolbarItems>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cart" 
+                     IconImageSource="cart.png" 
+                     Clicked="OnCartClicked" />
+        <ToolbarItem Text="Tables"
+                     IconImageSource="table.png"
+                     Order="Primary"
+                     Priority="1"
+                     Clicked="OnTablesClicked" />
+        <ToolbarItem Text="Stats"
+                     IconImageSource="chart.png" 
+                     Order="Primary"
+                     Priority="2"
+                     Clicked="OnStatisticsClicked" />
+        <ToolbarItem Text="Profile"
+                     IconImageSource="profile.png"
+                     Order="Primary"
+                     Priority="3"
+                     Clicked="OnProfileClicked" />
+    </ContentPage.ToolbarItems>
 
-
-    <Grid RowDefinitions="Auto,*" Padding="16,18,16,0">
-        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+    <Grid RowDefinitions="Auto,*" Padding="20,24,20,12">
+        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,20">
             <Label Text="Today's Menu" 
                    Style="{StaticResource PageHeaderStyle}" />
                    
             <Frame Grid.Column="1" 
-                   BackgroundColor="#FF5252" 
-                   CornerRadius="12" 
-                   HeightRequest="40" 
-                   WidthRequest="40" 
-                   Padding="0" 
-                   HorizontalOptions="End"
-                   VerticalOptions="Center">
+                   Style="{StaticResource CartButtonStyle}">
                 <Image Source="cart.png" 
                        HeightRequest="24" 
                        WidthRequest="24" 
@@ -106,72 +184,72 @@
             </Frame>
         </Grid>
                
-        <CollectionView Grid.Row="1" 
-                        ItemsSource="{Binding Plats}"
-                        SelectionMode="None"
-                        Margin="0,6,0,0">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" 
-                                 Span="2" 
-                                 HorizontalItemSpacing="10" 
-                                 VerticalItemSpacing="18" />
-            </CollectionView.ItemsLayout>
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                   <Frame Style="{StaticResource CardStyle}">
-    <Grid RowSpacing="4"
-          RowDefinitions="Auto,Auto,Auto,Auto,Auto"> <!-- Add an extra row for Details -->
-
-        <!-- Category tag -->
-        <Border Grid.Row="0"
-                StrokeShape="RoundRectangle 8"
-                BackgroundColor="#FFF3E0"
-                StrokeThickness="0"
-                HeightRequest="6"
-                WidthRequest="40"
-                HorizontalOptions="Start"
-                Margin="0,0,0,10" />
-
-        <Label Text="{Binding Name}"
-               Style="{StaticResource TitleStyle}"
-               Grid.Row="0"
-               Margin="0,16,0,0" />
-
-        <Label Text="{Binding Description}"
-               Style="{StaticResource DescriptionStyle}"
-               Grid.Row="1" />
-
-        <Label Text="{Binding Price, StringFormat='{0} MAD'}"
-               Style="{StaticResource PriceStyle}"
-               Grid.Row="2" />
-
-<HorizontalStackLayout Grid.Row="3" Spacing="8">
-    <Button Text="Add to Cart"
-            Style="{StaticResource AddToCartButtonStyle}"
-            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=AddToCartCommand}"
-            CommandParameter="{Binding}" />
-
-    <Button Text="Details"
-            Style="{StaticResource AddToCartButtonStyle}"
-            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=ShowDetailsCommand}"
-            CommandParameter="{Binding}" />
-</HorizontalStackLayout>
-
-    </Grid>
-</Frame>
-
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-            
-            <CollectionView.EmptyView>
-                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-                    <Label Text="No items available" 
-                           FontSize="18" 
-                           TextColor="#5E6579" 
-                           HorizontalOptions="Center" />
-                </StackLayout>
-            </CollectionView.EmptyView>
-        </CollectionView>
+        <RefreshView Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Plats}"
+                            SelectionMode="None"
+                            Margin="0,6,0,0">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" 
+                                     Span="2" 
+                                     HorizontalItemSpacing="12" 
+                                     VerticalItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                       <Frame Style="{StaticResource CardStyle}">
+                            <Grid RowSpacing="6"
+                                  RowDefinitions="Auto,Auto,Auto,Auto">
+                                
+                                <!-- Category tag -->
+                                <Border Grid.Row="0"
+                                        Style="{StaticResource CategoryTagStyle}" />
+                
+                                <Label Text="{Binding Name}"
+                                       Style="{StaticResource TitleStyle}"
+                                       Grid.Row="0"
+                                       Margin="0,18,0,0" />
+                
+                                <Label Text="{Binding Description}"
+                                       Style="{StaticResource DescriptionStyle}"
+                                       Grid.Row="1" />
+                
+                                <Label Text="{Binding Price, StringFormat='{0} MAD'}"
+                                       Style="{StaticResource PriceStyle}"
+                                       Grid.Row="2" />
+                
+                                <HorizontalStackLayout Grid.Row="3" Spacing="10" Margin="0,16,0,0">
+                                    <Button Text="Add to Cart"
+                                            Style="{StaticResource AddToCartButtonStyle}"
+                                            HorizontalOptions="FillAndExpand"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=AddToCartCommand}"
+                                            CommandParameter="{Binding}" />
+                
+                                    <Button Text="Details"
+                                            Style="{StaticResource DetailsButtonStyle}"
+                                            WidthRequest="100"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=ShowDetailsCommand}"
+                                            CommandParameter="{Binding}" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                
+                <CollectionView.EmptyView>
+                    <Grid VerticalOptions="Center" RowDefinitions="Auto,Auto" RowSpacing="16" Padding="20,40">
+                        <Image Source="empty_menu.png" 
+                               HeightRequest="120" 
+                               HorizontalOptions="Center" />
+                        <Label Grid.Row="1"
+                               Text="No items available at the moment" 
+                               FontSize="18" 
+                               FontFamily="OpenSansMedium"
+                               TextColor="#5E6579" 
+                               HorizontalOptions="Center" />
+                    </Grid>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </RefreshView>
     </Grid>
 </ContentPage>

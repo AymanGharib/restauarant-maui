@@ -3,10 +3,13 @@ using System.Windows.Input;
 using MauiMySQLDemo.Models;
 using MauiMySQLDemo.Services;
 using MauiMySQLDemo.Views;
+using System.Collections.ObjectModel;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 namespace MauiMySQLDemo.ViewModels;
 
-public class MenuViewModel
+public  partial  class MenuViewModel
 {
     public ObservableCollection<Plat> Plats { get; set; } = new();
     public ICommand AddToCartCommand { get; }
@@ -32,4 +35,15 @@ public class MenuViewModel
         _cartService.AddItem(plat);
 
     }
+   [RelayCommand]
+private async Task ShowDetailsAsync(Plat plat)
+{
+    await Application.Current!.MainPage!.Navigation.PushModalAsync(new PlatDetailModal(plat));
+}
+
+
+
+
+
+
 }

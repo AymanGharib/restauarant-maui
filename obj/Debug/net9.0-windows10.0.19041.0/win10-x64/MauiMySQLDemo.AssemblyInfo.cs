@@ -17,7 +17,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MauiMySQLDemo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+bf7e20eb8a380813ce2308eedd09c80eb7f65b5d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0+358c81b72ce1ae3ae0a4a4528ff8d460c89dcdfe")]
 [assembly: System.Reflection.AssemblyProductAttribute("MauiMySQLDemo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MauiMySQLDemo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

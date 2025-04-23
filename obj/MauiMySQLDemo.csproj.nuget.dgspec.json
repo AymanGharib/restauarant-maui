@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ayman\\Desktop\\MauiMySQLDemo\\MauiMySQLDemo.csproj": {}
+    "C:\\Users\\ayman\\Desktop\\MAUIMYSQLDEMO\\MauiMySQLDemo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ayman\\Desktop\\MauiMySQLDemo\\MauiMySQLDemo.csproj": {
+    "C:\\Users\\ayman\\Desktop\\MAUIMYSQLDEMO\\MauiMySQLDemo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ayman\\Desktop\\MauiMySQLDemo\\MauiMySQLDemo.csproj",
+        "projectUniqueName": "C:\\Users\\ayman\\Desktop\\MAUIMYSQLDEMO\\MauiMySQLDemo.csproj",
         "projectName": "MauiMySQLDemo",
-        "projectPath": "C:\\Users\\ayman\\Desktop\\MauiMySQLDemo\\MauiMySQLDemo.csproj",
+        "projectPath": "C:\\Users\\ayman\\Desktop\\MAUIMYSQLDEMO\\MauiMySQLDemo.csproj",
         "packagesPath": "C:\\Users\\ayman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ayman\\Desktop\\MauiMySQLDemo\\obj\\",
+        "outputPath": "C:\\Users\\ayman\\Desktop\\MAUIMYSQLDEMO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ayman\\AppData\\Roaming\\NuGet\\NuGet.Config",

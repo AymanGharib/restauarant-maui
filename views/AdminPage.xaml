@@ -1,0 +1,21 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MauiMySQLDemo.Views.AdminPage"
+    Title="Admin Panel">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="24">
+
+            <Label Text="🛠️ Plate Management" FontSize="20" FontAttributes="Bold" />
+
+            <Button Text="Add New Dish" Clicked="OnAddDishClicked" />
+            <Button Text="Modify/Delete Dishes" Clicked="OnManageDishesClicked" />
+
+            <Label Text="📅 Reservation Management" FontSize="20" FontAttributes="Bold" />
+
+            <Button Text="View/Modify Reservations" Clicked="OnManageReservationsClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

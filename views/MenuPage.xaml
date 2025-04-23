@@ -119,41 +119,48 @@
             
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame Style="{StaticResource CardStyle}">
-                        <Grid RowDefinitions="Auto,Auto,Auto,Auto" 
-                              RowSpacing="4">
-                              
-                            <!-- Visual indicator of food type/category -->
-                            <Border Grid.Row="0"
-                                    StrokeShape="RoundRectangle 8"
-                                    BackgroundColor="#FFF3E0"
-                                    StrokeThickness="0"
-                                    HeightRequest="6"
-                                    WidthRequest="40"
-                                    HorizontalOptions="Start"
-                                    Margin="0,0,0,10" />
-                                    
-                            <Label Text="{Binding Name}" 
-                                   Style="{StaticResource TitleStyle}" 
-                                   Grid.Row="0"
-                                   Margin="0,16,0,0" />
-                                   
-                            <Label Text="{Binding Description}" 
-                                   Style="{StaticResource DescriptionStyle}"
-                                   Grid.Row="1" />
-                                   
-                            <Label Text="{Binding Price, StringFormat='{0} MAD'}" 
-                                   Style="{StaticResource PriceStyle}"
-                                   Grid.Row="2" />
-                                   
-                            <Button Text="Add to Cart"
-                                    Style="{StaticResource AddToCartButtonStyle}"
-                                    Grid.Row="3"
-                                    VerticalOptions="End"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=AddToCartCommand}"
-                                    CommandParameter="{Binding}" />
-                        </Grid>
-                    </Frame>
+                   <Frame Style="{StaticResource CardStyle}">
+    <Grid RowSpacing="4"
+          RowDefinitions="Auto,Auto,Auto,Auto,Auto"> <!-- Add an extra row for Details -->
+
+        <!-- Category tag -->
+        <Border Grid.Row="0"
+                StrokeShape="RoundRectangle 8"
+                BackgroundColor="#FFF3E0"
+                StrokeThickness="0"
+                HeightRequest="6"
+                WidthRequest="40"
+                HorizontalOptions="Start"
+                Margin="0,0,0,10" />
+
+        <Label Text="{Binding Name}"
+               Style="{StaticResource TitleStyle}"
+               Grid.Row="0"
+               Margin="0,16,0,0" />
+
+        <Label Text="{Binding Description}"
+               Style="{StaticResource DescriptionStyle}"
+               Grid.Row="1" />
+
+        <Label Text="{Binding Price, StringFormat='{0} MAD'}"
+               Style="{StaticResource PriceStyle}"
+               Grid.Row="2" />
+
+<HorizontalStackLayout Grid.Row="3" Spacing="8">
+    <Button Text="Add to Cart"
+            Style="{StaticResource AddToCartButtonStyle}"
+            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=AddToCartCommand}"
+            CommandParameter="{Binding}" />
+
+    <Button Text="Details"
+            Style="{StaticResource AddToCartButtonStyle}"
+            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:MenuViewModel}}, Path=ShowDetailsCommand}"
+            CommandParameter="{Binding}" />
+</HorizontalStackLayout>
+
+    </Grid>
+</Frame>
+
                 </DataTemplate>
             </CollectionView.ItemTemplate>
             

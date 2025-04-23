@@ -1,0 +1,49 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:MauiMySQLDemo.ViewModels"
+    x:Class="MauiMySQLDemo.Views.ManageDishesPage"
+    Title="Manage Dishes">
+
+    <ContentPage.BindingContext>
+        <vm:AdminViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="20">
+
+            <Label Text="Dishes" FontSize="22" FontAttributes="Bold" />
+
+            <CollectionView ItemsSource="{Binding Plats}" SelectionMode="Single"
+                            SelectedItem="{Binding SelectedPlat}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="4">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Description}" FontSize="13" />
+                                <Label Text="{Binding Price, StringFormat='Price: {0} MAD'}" FontSize="13" />
+                                <Label Text="{Binding Category}" FontSize="13" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="Dish Form" FontSize="20" FontAttributes="Bold" />
+
+            <Entry Placeholder="Name" Text="{Binding Name}" />
+            <Entry Placeholder="Description" Text="{Binding Description}" />
+            <Entry Placeholder="Price" Keyboard="Numeric" Text="{Binding Price}" />
+            <Entry Placeholder="Category" Text="{Binding Category}" />
+            <Entry Placeholder="Image URL" Text="{Binding ImageUrl}" />
+
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Add" Command="{Binding AddPlatCommand}" />
+                <Button Text="Update" Command="{Binding UpdatePlatCommand}" />
+                <Button Text="Delete" Command="{Binding DeletePlatCommand}" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

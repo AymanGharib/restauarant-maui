@@ -1,0 +1,34 @@
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:MauiMySQLDemo.ViewModels"
+    x:Class="MauiMySQLDemo.Views.ManageReservationsPage"
+    Title="Manage Reservations">
+
+    <ContentPage.BindingContext>
+        <viewModels:AdminViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="18">
+            <Label Text="Reservations" FontSize="22" FontAttributes="Bold" />
+
+            <CollectionView ItemsSource="{Binding Reservations}" SelectionMode="Single"
+                            SelectedItem="{Binding SelectedReservation}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Gray" CornerRadius="10" Padding="10" Margin="4">
+                            <VerticalStackLayout>
+                                <Label Text="Table: {Binding TableId}" FontAttributes="Bold" />
+                                <Label Text="Name: {Binding Name}" />
+                                <Label Text="Date: {Binding Date}" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Delete Reservation" Command="{Binding DeleteReservationCommand}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
